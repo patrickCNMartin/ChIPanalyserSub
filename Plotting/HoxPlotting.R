@@ -10,14 +10,10 @@ library(RcppRoll)
 library(parallel)
 library(GenomicRanges)
 library(ROCR)
+library(ChIPanalyser)
 
 
-## sourcing scripts for analysis
-setwd("/home/pm16057/ChIPanalyser/ChIPanalyserFinal/ChIPdev")
-files <- dir()
-for (i in files) source(i)
-setwd(direc)
-
+#
 
 ###
 
@@ -136,11 +132,6 @@ legend("topleft",legend=c("Ubx","Abd-b","Dfd"),col=cols,lty=1:3,bty="n",lwd=2,ce
 title(xlab="QDA")
 title(ylab="AUC")
 
-# over training
-#for(i in seq_along(training)){
-   #lines(seq_along(training[[i]]$AUC),training[[i]]$AUC,col=cols[i],lty=line[i] ,lwd=2)
-#}
- #over validation
 
  for(i in seq_along(validation)){
     lines(seq_along(validation[[i]]$AUC),validation[[i]]$AUC,col=cols[i],lty=line[i] ,lwd=2)
@@ -180,8 +171,6 @@ flags<-c("HoX_ubx","HoX_abdb","HoX_dfd")
     }
 
 
-## selecting files with correct step size.
-## you messed up the annotation of files
 
 ChipValMSE<-chipselect[grepl("Validation", chipselect) & grepl("AUC",chipselect)]
 OptimalValMSE<-optimalsselect[grepl("Validation", optimalsselect) & grepl("AUC",optimalsselect)]
@@ -221,9 +210,7 @@ selectionAccess<-c("../objects/ATACAccess_0.99.Rda","../objects/ATACAccess_0.7.R
 
 
 
-### after filtering shitty region most of them
 
-#we get some other stuff
 
 pdf("HoX_Profiles.pdf", width=10,height=12)
 layout(matrix(c(1,2,3,3,4,4,5,5), ncol=2, byrow=T))
@@ -316,70 +303,3 @@ dev.off()
 
 
 
-
-
-
-
-################################################################################
-############################# There is something odd going on here #############
-################################################################################
-
-# let's try something different
-
-flags<-c("HoX_ubx","HoX_abdb","HoX_dfd")
-    # splitting files into their cats
-    chips<-files[grepl("ChIP", files) & grepl(".Rda", files)]
-    optimals<-files[grepl("Output",files) & grepl(".Rda", files)]
-
-    chipselect<-c()
-    optimalsselect<-c()
-    for(i in seq_along(flags)){
-        chipselect<-c(chipselect,chips[grep(flags[i],chips)])
-        optimalsselect<-c(optimalsselect,optimals[grep(flags[i],optimals)])
-    }
-
-
-## selecting files with correct step size.
-## you messed up the annotation of files
-
-ChipValMSE<-chipselect[grepl("Training", chipselect)]
-OptimalValMSE<-optimalsselect[grepl("Training", optimalsselect) ]
-
-
-for(i in seq_along(OptimalValMSE)){
-    opti<-get(load(OptimalValMSE[i]))
-    chip<-get(load(ChipValMSE[i]))
-    #access<-get(load(selectionAccess[i]))
-    pdf(paste0("OptimalHeat_",flags[i],".pdf"))
-    plotOptimalHeatMaps(opti)
-    dev.off()
-}
-
-bytfChIP<-vector("list", length(flags))
-bytfOptimal<-vector("list", length(flags))
-names(bytfChIP)<-flags
-names(bytfOptimal)<-flags
-
-for(i in seq_along(bytfChIP)){
-    bytfChIP[[i]]<-grep(flags[i],ChipValMSE, value=T)
-    bytfOptimal[[i]]<-grep(flags[i],OptimalValMSE, value=T)
-
-}
-
-selectionListOptimal<-c("HoX_ubx_ATACAccess_0.99_step100_OptimalOutputTraining.Rda",
-                 "HoX_abdb_ATACAccess_0.95_step100_OptimalOutputTraining.Rda",
-                 "HoX_dfd_ATACAccess_0.65_step100_OptimalOutputTraining.Rda")
-
-selectionListChIP<-c("HoX_ubx_ATACAccess_0.99step100_ChIPTraining.Rda",
-                        "HoX_abdb_ATACAccess_0.95step100_ChIPTraining.Rda",
-                        "HoX_dfd_ATACAccess_0.65step100_ChIPTraining.Rda")
-selectionAccess<-c("../objects/ATACAccess_0.99.Rda","../objects/ATACAccess_0.95.Rda","../objects/ATACAccess_0.65.Rda")
-
-for(i in seq_along(selectionListOptimal)){
-    pdf(paste0(flags[i],".pdf"),width=14,height=4)
-    chipLoc<-get(load(selectionListChIP[i]))
-    optimalLoc<-get(load(selectionListOptimal[i]))
-    access<-get(load(selectionAccess[i]))
-    plotOccupancyProfile(optimalLoc$ChIPProfile,chipLoc,chromatinState=access)
-    dev.off()
-}
