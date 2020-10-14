@@ -1,3 +1,16 @@
+
+library(BSgenome.Dmelanogaster.UCSC.dm6)
+library(BSgenome)
+library(RcppRoll)
+library(parallel)
+library(GenomicRanges)
+library(ROCR)
+
+library(ChIPanalyser)
+
+source("DataHand.R")
+
+
 tf<-c("CTCF","BEAF-32","su(Hw)")
 cell<-c("Kc167","BG3","Kc167","BG3","S2","S2")
 labs<-LETTERS[1:6]

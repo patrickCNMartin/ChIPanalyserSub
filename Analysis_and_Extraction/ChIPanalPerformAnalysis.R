@@ -9,16 +9,14 @@ library(BSgenome)
 library(RcppRoll)
 library(GenomicRanges)
 library(ROCR)
+library(ChIPanalyser)
 
-
-setwd("/home/pm16057/ChIPanalyser/ChIPanalyserFinal/ChIPdev")
-files <- dir()
-for (i in files) source(i)
+source("DataHand.R")
 
 args <- commandArgs(TRUE)
 print(args)
 # Parsing NULL's because R is doenst want to
-# This is TERRRRIBLE!!!!!
+
 if(grepl("NULL",args[7])){args7<-NULL}else{args7<-args[7]}
 
 if(grepl("NULL",args[8])){args8<-NULL}else{args8<-get(load(args[8]))}
@@ -35,31 +33,32 @@ args12<-as.numeric(args[12])
 
 args14<-as.character(args[14])
 args15<-as.character(args[15])
+## Adding Other methods 
 args16<-c(as.character(args[16]),"AUC","recall","spearman")
-if(grepl("NULL",args[17])){args17<-NULL}else{args17<-get(load(args[17]));names(args17)<-c("max","background")}
 
-args18<-args[18]
-
+## Building TF list for performAnalysis
 TFList <- list(as.character(args[3]), as.character(args[4]))
+
+## Loading Dna Accessibility RDA file 
 if(!is.null(args7)){
-splits<-strsplit(args7, "/")[[1]]
-access<-splits[length(splits)]
-access<-strsplit(access,".Rda")[[1]]
+    splits<-strsplit(args7, "/")[[1]]
+    access<-splits[length(splits)]
+    access<-strsplit(access,".Rda")[[1]]
 } else {
-  access<-"NULL"
+    access<-"NULL"
 }
 
+
+## Setting up file names for outpur
 if(is.null(args9)){
-   name <- paste0(args[1],"_",args[2],"_step100_",access)
+    name <- paste0(args[1],"_",args[2],"_step100_",access)
 }else {
-   name <- paste0(args[1],"_",args[2],"_reduce_top10opti",args9,"_",access)
+    name <- paste0(args[1],"_",args[2],"_reduce_top10opti",args9,"_",access)
 }
 print(name)
 rm(loci)
-setwd("/home/pm16057/ChIPanalyser/ChIPanalyserFinal/ChIPdev")
-files <- dir()
-for (i in files) source(i)
 
+# Change directory to output folder
 setwd(paste0(direc,"/",args15))
 
 
@@ -77,6 +76,4 @@ performAnalysis(TFList=TFList,
                 filename=name,
                 OP=args13,
                 noiseFilter=args14,
-                method=args16,
-                normValues=args17,
-                withValidation=args18)
+                method=args16)

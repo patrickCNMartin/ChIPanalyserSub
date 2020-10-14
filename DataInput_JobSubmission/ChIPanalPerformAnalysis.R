@@ -2,18 +2,18 @@
 
 ### Loading Libraries and Scripts
 
-direc<-getwd()
 
 library(BSgenome.Dmelanogaster.UCSC.dm6)
 library(BSgenome)
 library(RcppRoll)
+library(parallel)
 library(GenomicRanges)
 library(ROCR)
 
+library(ChIPanalyser)
 
-setwd("/home/pm16057/ChIPanalyser/ChIPanalyserFinal/ChIPdev")
-files <- dir()
-for (i in files) source(i)
+source("DataHand.R")
+
 
 args <- commandArgs(TRUE)
 print(args)

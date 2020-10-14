@@ -3,7 +3,6 @@
 ###############################################################################
 
 
-direc<-getwd()
 
 library(BSgenome.Dmelanogaster.UCSC.dm6)
 library(BSgenome)
@@ -11,7 +10,11 @@ library(RcppRoll)
 library(parallel)
 library(GenomicRanges)
 library(ROCR)
+
 library(ChIPanalyser)
+
+source("DataHand.R")
+
 
 
 density <-dir()[grep("density.wig",dir())]

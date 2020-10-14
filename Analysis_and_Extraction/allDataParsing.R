@@ -1,6 +1,19 @@
 ###############################################################################
 ############################# all data parisng ################################
 ###############################################################################
+
+
+library(BSgenome.Dmelanogaster.UCSC.dm6)
+library(BSgenome)
+library(RcppRoll)
+library(parallel)
+library(GenomicRanges)
+library(ROCR)
+
+library(ChIPanalyser)
+
+source("DataHand.R")
+
 AUCdhs<-get(load("AUCDHSMatrix.Rda"))
 #Auc500<-get(load("AUCDHSMatrix500bp.Rda"))
 AUCnull<-get(load("AUCNULLMatrix.Rda"))

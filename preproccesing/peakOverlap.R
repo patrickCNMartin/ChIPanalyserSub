@@ -3,7 +3,6 @@
 ###############################################################################
 
 # loading stuff
-direc<-getwd()
 
 library(BSgenome.Dmelanogaster.UCSC.dm6)
 library(BSgenome)
@@ -12,14 +11,9 @@ library(parallel)
 library(GenomicRanges)
 library(ROCR)
 
-## Loading source code files 
-## Equivalent to:
 library(ChIPanalyser)
 
-setwd("/home/pm16057/ChIPanalyser/ChIPanalyserFinal/ChIPdev")
-files <- dir()
-for (k in files) source(k)
-setwd(direc)
+source("DataHand.R")
 
 
 ## Data

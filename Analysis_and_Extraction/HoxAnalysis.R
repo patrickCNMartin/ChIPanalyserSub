@@ -11,13 +11,10 @@ library(RcppRoll)
 library(parallel)
 library(GenomicRanges)
 library(ROCR)
+library(ChIPanalyser)
 
+source("DataHand.R")
 
-## sourcing scripts for analysis
-setwd("/home/pm16057/ChIPanalyser/ChIPanalyserFinal/ChIPdev")
-files <- dir()
-for (i in files) source(i)
-setwd(direc)
 
 
 

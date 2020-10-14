@@ -1,7 +1,6 @@
 ################################################################################
 ######################## Access plots ##########################################
 ################################################################################
-direc <- getwd()
 
 library(BSgenome.Dmelanogaster.UCSC.dm6)
 library(BSgenome)
@@ -9,6 +8,11 @@ library(RcppRoll)
 library(parallel)
 library(GenomicRanges)
 library(ROCR)
+
+library(ChIPanalyser)
+
+source("DataHand.R")
+
 ## data load
 kc<-get(load("/home/pm16057/DNAaccess/cellAccess/Kc_DHS_005.Rda"))
 s2<-get(load("/home/pm16057/DNAaccess/cellAccess/S2_DHS_005.Rda"))

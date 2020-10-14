@@ -14,10 +14,7 @@ library(MotifDb)
 
 
 ## sourcing scripts for analysis
-setwd("/home/pm16057/ChIPanalyser/ChIPanalyserFinal/ChIPdev")
-files <- dir()
-for (i in files) source(i)
-setwd(direc)
+source("DataHand.R")
 
 
 

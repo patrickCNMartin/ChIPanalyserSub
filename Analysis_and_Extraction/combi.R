@@ -14,16 +14,9 @@ library(parallel)
 library(GenomicRanges)
 library(ROCR)
 
-
-## sourcing scripts for analysis
-## Loading source code files 
-## Equivalent to:
 library(ChIPanalyser)
-setwd("/home/pm16057/ChIPanalyser/ChIPanalyserFinal/ChIPdev")
-files <- dir()
-for (i in files) source(i)
-setwd(direc)
 
+source("DataHand.R")
 
 
 

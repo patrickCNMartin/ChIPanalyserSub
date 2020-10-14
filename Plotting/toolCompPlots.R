@@ -16,11 +16,7 @@ library(MotifDb)
 
 
 ## sourcing scripts for analysis
-setwd("/home/pm16057/ChIPanalyser/ChIPanalyserFinal/ChIPdev")
-files <- dir()
-for (i in files) source(i)
-setwd(direc)
-
+source("DataHand.R")
 ## load data
 
 catshit <- dir()[grepl("Validation", dir()) & grepl("Catchitt", dir()) & grepl("train10", dir())]

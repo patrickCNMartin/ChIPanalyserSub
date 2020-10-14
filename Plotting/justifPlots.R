@@ -5,7 +5,6 @@
 ## start off with usual loading
 
 # Loading libraris and sourcing code
-direc <- getwd()
 
 library(BSgenome.Dmelanogaster.UCSC.dm6)
 library(BSgenome)
@@ -14,12 +13,10 @@ library(parallel)
 library(GenomicRanges)
 library(ROCR)
 
+library(ChIPanalyser)
 
-## sourcing scripts for analysis
-setwd("/home/pm16057/ChIPanalyser/ChIPanalyserFinal/ChIPanalyser_1.1")
-files <- dir()
-for (i in files) source(i)
-setwd(direc)
+source("DataHand.R")
+
 
 
 ## Loading data

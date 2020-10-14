@@ -1,3 +1,16 @@
+
+library(BSgenome.Dmelanogaster.UCSC.dm6)
+library(BSgenome)
+library(RcppRoll)
+library(parallel)
+library(GenomicRanges)
+library(ROCR)
+
+library(ChIPanalyser)
+
+source("DataHand.R")
+
+
 pdf("chromosome_withhold_setup.pdf",width=15,height=22)
 layout(matrix(c(1,1,2,2,3,3,4,4,5,5,6,6,7,8,9,10), ncol=2, byrow=T),height=c(1.4,1.4,1.4,1.4,1.4,1.4,2,2))
 par(family="sans",xpd=NA)

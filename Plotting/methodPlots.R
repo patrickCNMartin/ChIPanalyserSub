@@ -3,7 +3,6 @@
 # Data set up starting with the usual
 
 # Loading libraris and sourcing code
-direc <- getwd()
 
 library(BSgenome.Dmelanogaster.UCSC.dm6)
 library(BSgenome)
@@ -12,15 +11,10 @@ library(parallel)
 library(GenomicRanges)
 library(ROCR)
 
-
-## sourcing scripts for analysis
-## Loading source code files 
-## Equivalent to:
 library(ChIPanalyser)
-setwd("/home/pm16057/ChIPanalyser/ChIPanalyserFinal/ChIPdev")
-files <- dir()
-for (i in files) source(i)
-setwd(direc)
+
+source("DataHand.R")
+
 
 colsheat<-rep(c("#4f9da6","#233142","#ff5959"),times=2)
 cols<-c(rep("#4f9da6",times=4),rep("#233142",times=8))

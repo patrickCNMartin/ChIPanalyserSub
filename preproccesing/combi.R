@@ -5,7 +5,6 @@
 # Data set up starting with the usual
 
 # Loading libraris and sourcing code
-direc <- getwd()
 
 library(BSgenome.Dmelanogaster.UCSC.dm6)
 library(BSgenome)
@@ -14,11 +13,10 @@ library(parallel)
 library(GenomicRanges)
 library(ROCR)
 
-
-## sourcing scripts for analysis
-## Loading source code files 
-## Equivalent to:
 library(ChIPanalyser)
+
+source("DataHand.R")
+
 
 
 
