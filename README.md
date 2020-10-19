@@ -56,6 +56,7 @@ The Analysis and Extraction folder contains all scripts included in our analysis
 * `toopComp_train10_va20.R`: R script used to assess the performance of other tools compared to ChIPanalyser (NOTE: number of regions used for training/validation should be changed accordingly).
 * `noiseFilter.R`: R script used to analyse the effect of our noise filtering methods. 
 * `chromosomeWitholding.R`: R script used to validate the model between chromosomes.
+* `toolProfileComp.R`: R script used to extract and produce ChIP like profiles for each tool.
 
 ### Data handling 
 
@@ -85,3 +86,4 @@ The plotting folder contains the scripts used for plotting.
 * `rna.R`: R script used to produce the RNA rescaling plots (must run `rnaNew.R` beforehand).
 * `justifPlots.R`: R script used to produce preliminary analysis and justification on Pearson drop metric drop.
 * `pwmMotif.R`: R script used to produce PWM motif plots. 
+* `toolProfilePlot.R`: R script used to produce profiles for each tool. 
