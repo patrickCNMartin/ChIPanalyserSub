@@ -16,7 +16,7 @@ library(MotifDb)
 
 
 ## sourcing scripts for analysis
-source("DataHand.R")
+#source("DataHand.R")
 ## load data
 
 catshit <- dir()[grepl("Validation", dir()) & grepl("Catchitt", dir()) & grepl("train10", dir())]
@@ -209,6 +209,7 @@ yl <- c(0.565,0.565,0.007)
 par(mar =c(13.5,8.5,5,8))
 for(i in seq_along(methbox)){
   boxplot(methbox[[i]],main=tits[i],col=cols,frame=F,cex.axis=2,cex.main=2,ylim=lims[[i]],las=2)
+    title(ylab= tits[i], cex.lab = 2, line = 6)
   #text(x=0,y=max(lims[[i]])+0.15*max(lims[[i]]),labels=labs[i],cex=4)
   text(x=0,y=yl[i],labels=labs[i],cex=4)
 
