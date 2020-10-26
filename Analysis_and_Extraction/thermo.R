@@ -10,13 +10,8 @@ library(RcppRoll)
 library(parallel)
 library(GenomicRanges)
 library(ROCR)
+library(ChIPanalyser)
 
-
-## sourcing scripts for analysis
-setwd("~/ChIPanalyser/ChIPanalyserFinal/ChIPdev")
-files <- dir()
-for (i in files) source(i)
-setwd(direc)
 
 
 
@@ -24,8 +19,8 @@ setwd(direc)
 ## we can base this on method data sets
 
 
-#input <-read.table("~/ChIPanalyser/ChIPanalyserFinal/methods/DataInputMethod.txt", sep=' ', comment.char='@', stringsAsFactors=F)
-input<-read.table("~/ChIPanalyser/ChIPanalyserFinal/performAnalysis/DataInputDHSgeometric.txt", sep=' ', comment.char='@', stringsAsFactors=F)
+
+input<-read.table("DataInputDHSgeometric.txt", sep=' ', comment.char='@', stringsAsFactors=F)
 
 
 DNASequenceSet <- get(load(input[1,6]))
@@ -33,7 +28,7 @@ AccessBEAF<-get(load(input[7,7]))
 AccessCTCF<-get(load(input[7,7]))
 Accesssuhw<-get(load(input[7,7]))
 
-## test data set clean shifted to beaf-32 instead just becase its cleaner
+
 
 fileBEAF <- as.vector(as.matrix(input[7,5]))
 fileCTCF <- as.vector(as.matrix(input[12,5]))
@@ -105,21 +100,6 @@ subOptiBEAF <- searchSites(optimalBEAF, paramBEAF[1],paramBEAF[2])
 subOptiCTCF <- searchSites(optimalCTCF, paramCTCF[1],paramCTCF[2])
 subOptisuhw <- searchSites(optimalsuhw, paramsuhw[1],paramsuhw[2])
 
-pdf("BEAFtest.pdf")
-par(mfrow=c(5,2),mar=c(2,2,2,2))
-plotOccupancyProfile(subOptiBEAF$ChIPProfiles, chipTrainBEAF,occupancy=subOptiBEAF$Occupancy,PWM=TRUE, chromatinState=AccessBEAF)
-dev.off()
-
-pdf("CTCFtest.pdf")
-par(mfrow=c(5,2),mar=c(2,2,2,2))
-plotOccupancyProfile(subOptiCTCF$ChIPProfiles, chipTrainCTCF,occupancy=subOptiCTCF$Occupancy,PWM=TRUE, chromatinState=AccessCTCF)
-dev.off()
-
-pdf("suhwtest.pdf")
-par(mfrow=c(5,2),mar=c(2,2,2,2))
-plotOccupancyProfile(subOptisuhw$ChIPProfiles, chipTrainsuhw, occupancy=subOptisuhw$Occupancy,PWM=TRUE,chromatinState=Accesssuhw)
-dev.off()
-
 ## Validation
 
 GPvalBEAF <-genomicProfiles(PFM=pfmBEAF,PFMFormat=PFMFor, BPFrequency=DNASequenceSet,
@@ -163,20 +143,6 @@ gofBEAFArt<-profileAccuracyEstimate(chipBEAFArt,chipValidationArtBEAF,cores=core
 gofCTCF<-profileAccuracyEstimate(chipCTCF,chipValidationCTCF,cores=cores)
 gofsuhw<-profileAccuracyEstimate(chipsuhw,chipValidationsuhw,cores=cores)
 
-
-pdf("BEAF_validation.pdf")
-par(mfrow=c(5,2),mar=c(2,2,2,2))
-plotOccupancyProfile(chipBEAFArt,chipValidationArtBEAF,occupancy=occupBEAFArt,PWM=TRUE,chromatinState=AccessBEAF)
-dev.off()
-pdf("CTCF_validation.pdf")
-par(mfrow=c(5,2),mar=c(2,2,2,2))
-plotOccupancyProfile(chipCTCF,chipValidationCTCF,occupancy=occupCTCF,PWM=TRUE,chromatinState=AccessCTCF)
-dev.off()
-
-pdf("suhw_validation.pdf")
-par(mfrow=c(5,2),mar=c(2,2,2,2))
-plotOccupancyProfile(chipsuhw,chipValidationsuhw,occupancy=occupsuhw,PWM=TRUE,chromatinState=Accesssuhw)
-dev.off()
 
 
 #### plot selection
