@@ -57,6 +57,7 @@ The Analysis and Extraction folder contains all scripts included in our analysis
 * `noiseFilter.R`: R script used to analyse the effect of our noise filtering methods. 
 * `chromosomeWitholding.R`: R script used to validate the model between chromosomes.
 * `toolProfileComp.R`: R script used to extract and produce ChIP like profiles for each tool.
+* `thermo.R`: R script used to produce the comparison between ChIPanalyser and PWM scores alone. This also contains associated plotting scripts. 
 
 ### Data handling 
 
