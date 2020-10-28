@@ -19,9 +19,10 @@ library(MotifDb)
 #source("DataHand.R")
 ## load data
 
-catshit <- dir()[grepl("Validation", dir()) & grepl("Catchitt", dir()) & grepl("train10", dir())]
-centi <- dir()[grepl("Validation", dir()) & grepl("msCENTIPEDE", dir()) & grepl("train10", dir())]
-PIQ <- dir()[grepl("Validation", dir()) & grepl("PIQ", dir()) & grepl("train10", dir())]
+
+catshit <- dir()[grepl("Validation", dir()) & grepl("Catchitt", dir()) & grepl("train10", dir())& !grepl("profiles", dir())]
+centi <- dir()[grepl("Validation", dir()) & grepl("msCENTIPEDE", dir()) & grepl("train10", dir())& !grepl("profiles", dir())]
+PIQ <- dir()[grepl("Validation", dir()) & grepl("PIQ", dir()) & grepl("train10", dir())& !grepl("profiles", dir())]
 ChIPanal <- paste0("ChIPanal/",dir("ChIPanal/")[grepl("Validation", dir("ChIPanal/"))  & grepl("train10", dir("ChIPanal/")) & !grepl("ChIPProfile", dir("ChIPanal/"))])
 
 
@@ -85,12 +86,12 @@ meth <- lapply(meth, function(x){
 
 
 
-   
-      
+
+
 for(i in seq_along(data)){
 	 for(j in seq_along(methods)){
      		for(k in seq_along(reord)){
-			
+
              if(names(data)[i]!="ChIPanalyser"){
                  if(names(meth)[j]=="AUC"){
                     meth[[j]][[i]][[k]]<-data[[i]][[k]]$auc
@@ -109,7 +110,7 @@ for(i in seq_along(data)){
                  meth[[j]][[i]][[k]]<-sco
              }
 
-			
+
 		}
 	}
 }
@@ -139,11 +140,11 @@ methbox <- lapply(methbox, function(x){
 
 
 
-   
-      
+
+
 for(i in seq_along(data)){
 	 for(j in seq_along(methods)){
-     					
+
              if(names(data)[i]!="ChIPanalyser"){
                  if(names(methbox)[j]=="AUC"){
                     methbox[[j]][[i]]<-data[[i]]$auc
@@ -162,8 +163,8 @@ for(i in seq_along(data)){
                  methbox[[j]][[i]]<-sco
              }
 
-			
-		
+
+
 	}
 }
 
