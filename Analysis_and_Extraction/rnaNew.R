@@ -3,7 +3,7 @@
 
 ### RNA re scale
 
-direc <- "/home/pm16057/ChIPanalyser/ChIPanalyserFinal/RNA/refine"
+direc <- "/home/patrickmartin/ChIPanalyser/ChIPanalyserFinal/RNA/refine"
 
 library(BSgenome.Dmelanogaster.UCSC.dm6)
 library(BSgenome)
@@ -31,9 +31,9 @@ source("DataHand.R")
 ### RNA Scaling plots
 
 #Data Loading
-AccessKc<-get(load("/home/pm16057/DNAaccess/cellAccess/Kc_DHS_005.Rda"))
-AccessBG3<-get(load("/home/pm16057/DNAaccess/cellAccess/BG3_DHS_005.Rda"))
-AccessS2<-get(load("/home/pm16057/DNAaccess/cellAccess/S2_DHS_005.Rda"))
+AccessKc<-get(load("/home/patrickmartin/DNAaccess/cellAccess/Kc_DHS_005.Rda"))
+AccessBG3<-get(load("/home/patrickmartin/DNAaccess/cellAccess/BG3_DHS_005.Rda"))
+AccessS2<-get(load("/home/patrickmartin/DNAaccess/cellAccess/S2_DHS_005.Rda"))
 
 Access<-list("BG3"=AccessBG3,"S2"=AccessS2,"S2"=AccessS2)
 AccessOriginal<-list(AccessKc,AccessBG3,AccessKc)
@@ -42,9 +42,9 @@ AccessOriginal<-list(AccessKc,AccessBG3,AccessKc)
 DNASequenceSet<-get(load("~/ChIPanalyser/ChIPanalyserFinal/performAnalysis/DNASequenceSet.Rda"))
 #input<-read.table("~/ChIPanalyser/ChIPanalyserFinal/performAnalysis/DataInputTRL.txt",sep=' ', comment.char='@',stringsAsFactors=F)
 
-pfms<-list("CTCF"="/home/pm16057/ChIPanalyser/ChIPanalyserFinal/ChIPanalyserTesting/pfmDroso/CTCF.pfm",
-           "beaf"="/home/pm16057/ChIPanalyser/ChIPanalyserFinal/ChIPanalyserTesting/pfmDroso/BEAF-32.pfm",
-           "hw"="/home/pm16057/ChIPanalyser/ChIPanalyserFinal/ChIPanalyserTesting/pfmDroso/su(Hw).pfm")
+pfms<-list("CTCF"="/home/patrickmartin/ChIPanalyser/ChIPanalyserFinal/ChIPanalyserTesting/pfmDroso/CTCF.pfm",
+           "beaf"="/home/patrickmartin/ChIPanalyser/ChIPanalyserFinal/ChIPanalyserTesting/pfmDroso/BEAF-32.pfm",
+           "hw"="/home/patrickmartin/ChIPanalyser/ChIPanalyserFinal/ChIPanalyserTesting/pfmDroso/su(Hw).pfm")
 
 ## rna shit
 rna<-read.csv("../fpkm_dm3_cells.csv",stringsAsFactors=F)
@@ -91,11 +91,11 @@ ChIPProfiles<-list("ctcf_Kc167"=ctcfKCChIP,"beaf_BG3"=beafBG3ChIP,"hw_Kc167"=suh
 
  ### The one you will be working with or predicing in to show the resclaing
 
-ctcfBG3<-get(load("/home/pm16057/ChIP/modEncode_BG3/modEncode/modEncode_3674/signal_data_files/CTCF:Cell-Line=ML-DmBG3-c2#Developmental-Stage=Larvae-3rd-instar#RNAi-reagent=CG8573-RNAi#Tissue=CNS-derived-cell-line:ChIP-chip:Rep-1::Dmel_r5.32:modENCODE_3674:repset.12058903.smoothedM.bed.Rda"))
+ctcfBG3<-get(load("/home/patrickmartin/ChIP/modEncode_BG3/modEncode/modEncode_282/signal_data_files/CTCF:Cell-Line=ML-DmBG3-c2#Developmental-Stage=Larvae-3rd-instar#Tissue=CNS-derived-cell-line:ChIP-chip:Rep-1::Dmel_r5.32:modENCODE_282:repset.4621686.smoothedM.bed.Rda"))
 
-beafS2<-get(load("/home/pm16057/ChIP/modEncode_s2/modEncode/modEncode_922/signal_data_files/BEAF-32:Cell-Line=S2-DRSC#Developmental-Stage=Late-Embryonic-stage#Tissue=Embryo-derived-cell-line:ChIP-chip:Rep-1::Dmel_r5.32:modENCODE_922:repset.4620888.smoothedM.bed.Rda"))
+beafS2<-get(load("/home/patrickmartin/ChIP/modEncode_s2/modEncode/modEncode_922/signal_data_files/BEAF-32:Cell-Line=S2-DRSC#Developmental-Stage=Late-Embryonic-stage#Tissue=Embryo-derived-cell-line:ChIP-chip:Rep-1::Dmel_r5.32:modENCODE_922:repset.4620888.smoothedM.bed.Rda"))
 
-suhwS2<-get(load("/home/pm16057/ChIP/modEncode_s2/modEncode/modEncode_331/signal_data_files/Su(Hw):Cell-Line=S2-DRSC#Developmental-Stage=Late-Embryonic-stage#Tissue=Embryo-derived-cell-line:ChIP-chip:Rep-1::Dmel_r5.32:modENCODE_331:repset.4621850.smoothedM.bed.Rda"))
+suhwS2<-get(load("/home/patrickmartin/ChIP/modEncode_s2/modEncode/modEncode_331/signal_data_files/Su(Hw):Cell-Line=S2-DRSC#Developmental-Stage=Late-Embryonic-stage#Tissue=Embryo-derived-cell-line:ChIP-chip:Rep-1::Dmel_r5.32:modENCODE_331:repset.4621850.smoothedM.bed.Rda"))
 
 rescaledChIP<-list("ctcf_BG3"=ctcfBG3,"beaf_S2"=beafS2,"hw_S2"=suhwS2)
 
@@ -115,7 +115,7 @@ rescaledExtract <- vector("list",3)
 names(rescaledExtract)<-paste0(names(predictions),"_",names(rescaledChIP))
 
 rescaledChIPsignal <- vector("list",3)
-names(rescaledExtract)<-paste0(names(predictions),"_",names(rescaledChIP))
+names(rescaledChIPsignal)<-paste0(names(predictions),"_",names(rescaledChIP))
 
 for(i in seq_along(predictions)){
       print(names(rescaledExtract)[i])
@@ -142,9 +142,10 @@ for(i in seq_along(predictions)){
 
 
       bmSet <- c(bound , as.numeric(round((bound/scale[[i]][[1]])*scale[[i]][[2]])),
+                 bound/10,
                  bound/100)
       print(bmSet)
-      rescaling<-list("Carry"=NULL,"Rescaled"=NULL,"100Fold"=NULL)
+      rescaling<-list("Carry"=NULL,"Rescaled"=NULL,"10Fold"=NULL,"100Fold"=NULL)
       for(j in seq_along(bmSet)){
           print(names(rescaling)[j])
           GPP <- genomicProfiles(PFM=pfms[[i]], PFMFormat="JASPAR", BPFrequency=DNASequenceSet,lambdaPWM=lambda,boundMolecules=bmSet[j],stepSize=100)
